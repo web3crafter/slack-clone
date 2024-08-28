@@ -1,10 +1,10 @@
+import { z } from "zod";
 import { Password } from "@convex-dev/auth/providers/Password";
 import { ConvexError } from "convex/values";
 import { DataModel } from "./_generated/dataModel";
-import { z } from "zod";
 
 const ParamsSchema = z.object({
-  name: z.string().min(1),
+  name: z.string().min(1).optional(),
   email: z.string().email(),
   password: z.string().min(6),
 });

@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 
-import { SignInFlow } from "@/app/features/auth/types";
+import { SignInFlow } from "@/features/auth/types";
 
-import { SignInCard } from "@/app/features/auth/components/sign-in-card";
-import { SignUpCard } from "@/app/features/auth/components/sign-up-card";
+import { SignInCard } from "@/features/auth/components/sign-in-card";
+import { SignUpCard } from "@/features/auth/components/sign-up-card";
 
 export const AuthScreen = () => {
   const [state, setState] = useState<SignInFlow>("signIn");

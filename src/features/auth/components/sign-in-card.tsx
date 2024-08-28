@@ -4,12 +4,11 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { TriangleAlert } from "lucide-react";
 
-import { SignInFlow } from "@/app/features/auth/types";
+import { SignInFlow } from "@/features/auth/types";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { InputPassword } from "@/components/input-password";
 import {
   Card,
   CardContent,
@@ -17,37 +16,30 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { InputPassword } from "@/features/auth/components/input-password";
 
-interface SignUpCardProps {
+interface SignInCardProps {
   setState: Dispatch<SetStateAction<SignInFlow>>;
 }
-export const SignUpCard = ({ setState }: SignUpCardProps) => {
+export const SignInCard = ({ setState }: SignInCardProps) => {
   const { signIn } = useAuthActions();
-  const [name, setName] = useState("");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [isPending, setIsPending] = useState(false);
-
   const [error, setError] = useState("");
 
-  const onPasswordSignUp = (e: React.FormEvent<HTMLFormElement>) => {
+  const onPasswordSignIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
-
     setIsPending(true);
-    signIn("password", { name, email, password, flow: "signUp" })
+    signIn("password", { email, password, flow: "signIn" })
       .catch(() => {
-        setError("Something went wrong, please try again");
+        setError("Invalid email or password");
       })
       .finally(() => setIsPending(false));
   };
 
-  const handleProviderSignUp = (value: "google" | "github") => {
+  const handleProviderSignIn = (value: "google" | "github") => {
     setIsPending(true);
     signIn(value).finally(() => setIsPending(false));
   };
@@ -55,7 +47,7 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
   return (
     <Card className="h-full w-full p-8">
       <CardHeader className="px-0 pt-0">
-        <CardTitle>Sign up to continue</CardTitle>
+        <CardTitle>Login to continue</CardTitle>
         <CardDescription>
           Use your email or another service to continue
         </CardDescription>
@@ -67,14 +59,7 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
         </div>
       )}
       <CardContent className="space-y-5 px-0 pb-0">
-        <form onSubmit={onPasswordSignUp} className="space-y-2.5">
-          <Input
-            disabled={isPending}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Full Name"
-            required
-          />
+        <form onSubmit={onPasswordSignIn} className="space-y-2.5">
           <Input
             disabled={isPending}
             value={email}
@@ -88,13 +73,6 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            required
-          />
-          <InputPassword
-            disabled={isPending}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Confirm Password"
             required
           />
           <Button
@@ -113,7 +91,7 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
             className="relative w-full"
             disabled={isPending}
             size={"lg"}
-            onClick={() => handleProviderSignUp("google")}
+            onClick={() => handleProviderSignIn("google")}
           >
             <FcGoogle className="absolute left-3 top-3 size-5" />
             Continue with Google
@@ -123,19 +101,19 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
             className="relative w-full"
             disabled={isPending}
             size={"lg"}
-            onClick={() => handleProviderSignUp("github")}
+            onClick={() => handleProviderSignIn("github")}
           >
             <FaGithub className="absolute left-3 top-3 size-5" />
             Continue with Github
           </Button>
         </div>
         <p className="text-xs text-muted-foreground">
-          Already have an account?{" "}
+          Don&apos;t have an account?{" "}
           <span
             className="cursor-pointer text-sky-700 hover:underline"
-            onClick={() => setState("signIn")}
+            onClick={() => setState("signUp")}
           >
-            Sign In
+            Sign Up
           </span>
         </p>
       </CardContent>

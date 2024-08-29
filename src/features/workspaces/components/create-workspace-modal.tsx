@@ -16,8 +16,7 @@ export const CreateWorkspaceModal = () => {
   const [open, setOpen] = useCreateWorkspaceModal();
   const [name, setName] = useState("");
 
-  const { mutate, data, error, isError, isPending, isSettled, isSuccess } =
-    useCreateWorkspace();
+  const { mutate, isPending } = useCreateWorkspace();
 
   const handleClose = () => {
     setOpen(false);

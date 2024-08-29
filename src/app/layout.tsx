@@ -8,6 +8,7 @@ import "./globals.css";
 
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Modals } from "@/components/modals";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="system">
             <ConvexClientProvider>
               <JotaiProvider>
+                <Toaster />
                 <Modals />
                 {children}
               </JotaiProvider>

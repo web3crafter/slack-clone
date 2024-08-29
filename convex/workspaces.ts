@@ -22,7 +22,7 @@ export const create = mutation({
       joinCode,
     });
 
-    return workspaceId;
+    return { workspaceId };
   },
 });
 

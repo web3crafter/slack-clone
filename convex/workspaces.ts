@@ -1,6 +1,7 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { getAuthUserId } from "@convex-dev/auth/server";
+import { Doc } from "./_generated/dataModel";
 
 const generateCode = () => {
   const code = Array.from(
@@ -57,11 +58,19 @@ export const get = query({
 
     const workspaceIds = members.map((member) => member.workspaceId);
 
-    const workspaces = await Promise.all(
-      workspaceIds.map(async (id) => await ctx.db.get(id)),
+    const results = await Promise.allSettled(
+      workspaceIds.map((id) => ctx.db.get(id)),
     );
 
-    const validWorkspaces = workspaces.filter(Boolean);
+    const validWorkspaces = results
+      .filter(
+        (result): result is PromiseFulfilledResult<Doc<"workspaces"> | null> =>
+          result.status === "fulfilled",
+      )
+      .map((result) => result.value)
+      .filter(
+        (workspace): workspace is Doc<"workspaces"> => workspace !== null,
+      );
 
     return validWorkspaces;
   },

@@ -1,5 +1,5 @@
 const WorkspaceIdPage = () => {
-  return <div>Workspace is page</div>;
+  return <div>Workspace page</div>;
 };
 
 export default WorkspaceIdPage;

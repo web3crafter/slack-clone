@@ -30,7 +30,7 @@ export const CreateWorkspaceModal = () => {
     e.preventDefault();
 
     mutate(
-      { name: "test" },
+      { name: name.trim() },
       {
         onSuccess(data) {
           toast.success("Workspace created");

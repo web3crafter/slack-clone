@@ -7,6 +7,7 @@ import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { Button } from "@/components/ui/button";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
+import { Id } from "../../../../../convex/_generated/dataModel";
 
 const sidebarItemVariants = cva(
   "flex items-center gap-1.5 justify-start font-normal h-7 px-[18px] text-sm overflow-hidden",
@@ -26,9 +27,8 @@ const sidebarItemVariants = cva(
 interface SidebarItemProps {
   label: string;
   icon: LucideIcon | IconType;
-  id: string;
   variant?: VariantProps<typeof sidebarItemVariants>["variant"];
-  // id: Id<"channels"> | string;
+  id: Id<"channels"> | string;
 }
 
 export const SidebarItem = ({

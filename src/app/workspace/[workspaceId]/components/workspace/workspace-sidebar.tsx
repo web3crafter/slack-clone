@@ -1,17 +1,28 @@
 import { SidebarItem } from "@/app/workspace/[workspaceId]/components/sidebar-item";
-import { WorkspaceHeader } from "@/app/workspace/[workspaceId]/components/workspace-header";
+import { WorkspaceHeader } from "@/app/workspace/[workspaceId]/components/workspace/workspace-header";
+import { WorkspaceSection } from "@/app/workspace/[workspaceId]/components/workspace/workspace-section";
+import { useGetChannels } from "@/features/channels/api/use-get-channels";
 import { useCurrentMember } from "@/features/members/api/use-current-member";
+import { useGetMembers } from "@/features/members/api/use-get-members";
 import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import {
   AlertTriangle,
+  HashIcon,
   Loader,
   MessageSquareText,
   SendHorizonal,
+  Users,
 } from "lucide-react";
 
 export const WorkspaceSidebar = () => {
   const workspaceId = useWorkspaceId();
+  const { data: channels, isLoading: isLoadingChannels } = useGetChannels({
+    workspaceId,
+  });
+  const { data: members, isLoading: isLoadingMembers } = useGetMembers({
+    workspaceId,
+  });
   const { data: member, isLoading: isLoadingMember } = useCurrentMember({
     workspaceId,
   });
@@ -46,6 +57,27 @@ export const WorkspaceSidebar = () => {
         <SidebarItem label="Threads" icon={MessageSquareText} id="threads" />
         <SidebarItem label="Drafts & Sent" icon={SendHorizonal} id="drafts" />
       </div>
+      <WorkspaceSection label="Channels" hint="New channel" onNew={() => {}}>
+        {channels?.map((item) => (
+          <SidebarItem
+            key={item._id}
+            label={item.name}
+            icon={HashIcon}
+            id={item._id}
+          />
+        ))}
+      </WorkspaceSection>
+      <WorkspaceSection label="Members" hint="Add member" onNew={() => {}}>
+        {members &&
+          members?.map((item) => (
+            <SidebarItem
+              key={item._id}
+              label={item.name!}
+              icon={Users}
+              id={item._id}
+            />
+          ))}
+      </WorkspaceSection>
     </div>
   );
 };

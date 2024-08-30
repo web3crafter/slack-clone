@@ -2,7 +2,7 @@
 
 import { Sidebar } from "@/app/workspace/[workspaceId]/components/sidebar";
 import { Toolbar } from "@/app/workspace/[workspaceId]/components/toolbar";
-import { WorkspaceSidebar } from "@/app/workspace/[workspaceId]/components/workspace-sidebar";
+import { WorkspaceSidebar } from "@/app/workspace/[workspaceId]/components/workspace/workspace-sidebar";
 import {
   ResizableHandle,
   ResizablePanel,

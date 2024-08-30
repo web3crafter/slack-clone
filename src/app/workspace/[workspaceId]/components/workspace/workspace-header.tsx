@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { ChevronDown, ListFilter, SquarePen } from "lucide-react";
-import { Doc } from "../../../../../convex/_generated/dataModel";
+import { Doc } from "../../../../../../convex/_generated/dataModel";
 
+import { PreferencesModal } from "@/app/workspace/[workspaceId]/components/preferences-modal";
+import { Hint } from "@/components/hint";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -10,8 +12,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Hint } from "@/components/hint";
-import { PreferencesModal } from "@/app/workspace/[workspaceId]/components/preferences-modal";
 
 interface WorkspaceHeaderProps {
   workspace: Doc<"workspaces">;

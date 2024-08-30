@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+import { toast } from "sonner";
 
 import { useCreateWorkspace } from "@/features/workspaces/api/use-create-workspace";
 
@@ -12,8 +15,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 export const CreateWorkspaceModal = () => {
   const [open, setOpen] = useCreateWorkspaceModal();

@@ -11,7 +11,7 @@ interface WorkspaceSectionProps {
   children: React.ReactNode;
   label: string;
   hint: string;
-  onNew: () => void;
+  onNew?: () => void;
 }
 
 export const WorkspaceSection = ({
@@ -20,7 +20,7 @@ export const WorkspaceSection = ({
   label,
   onNew,
 }: WorkspaceSectionProps) => {
-  const [on, toggle] = useToggle(false);
+  const [on, toggle] = useToggle(true);
 
   return (
     <div className="mt-3 flex flex-col px-2">
@@ -39,7 +39,7 @@ export const WorkspaceSection = ({
           className="group h-[28px] items-center justify-start overflow-hidden px-1.5 text-sm text-[#f9edffcc]"
           size={"sm"}
         >
-          <span className="truncate">{label}</span>
+          <span className="truncate font-semibold text-white">{label}</span>
         </Button>
         {onNew && (
           <Hint label={hint} side="top" align="center">

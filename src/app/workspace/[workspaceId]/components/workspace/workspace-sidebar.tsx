@@ -1,11 +1,3 @@
-import { SidebarItem } from "@/app/workspace/[workspaceId]/components/sidebar-item";
-import { WorkspaceHeader } from "@/app/workspace/[workspaceId]/components/workspace/workspace-header";
-import { WorkspaceSection } from "@/app/workspace/[workspaceId]/components/workspace/workspace-section";
-import { useGetChannels } from "@/features/channels/api/use-get-channels";
-import { useCurrentMember } from "@/features/members/api/use-current-member";
-import { useGetMembers } from "@/features/members/api/use-get-members";
-import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
-import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import {
   AlertTriangle,
   HashIcon,
@@ -14,6 +6,17 @@ import {
   SendHorizonal,
   Users,
 } from "lucide-react";
+
+import { useGetChannels } from "@/features/channels/api/use-get-channels";
+import { useCurrentMember } from "@/features/members/api/use-current-member";
+import { useGetMembers } from "@/features/members/api/use-get-members";
+import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
+import { useWorkspaceId } from "@/hooks/use-workspace-id";
+
+import { SidebarItem } from "@/app/workspace/[workspaceId]/components/sidebar-item";
+import { WorkspaceHeader } from "@/app/workspace/[workspaceId]/components/workspace/workspace-header";
+import { WorkspaceSection } from "@/app/workspace/[workspaceId]/components/workspace/workspace-section";
+import { UserItem } from "@/app/workspace/[workspaceId]/components/user-item";
 
 export const WorkspaceSidebar = () => {
   const workspaceId = useWorkspaceId();
@@ -67,14 +70,18 @@ export const WorkspaceSidebar = () => {
           />
         ))}
       </WorkspaceSection>
-      <WorkspaceSection label="Members" hint="Add member" onNew={() => {}}>
+      <WorkspaceSection
+        label="Direct Messages"
+        hint="New direct message"
+        onNew={() => {}}
+      >
         {members &&
           members?.map((item) => (
-            <SidebarItem
+            <UserItem
               key={item._id}
-              label={item.name!}
-              icon={Users}
               id={item._id}
+              label={item.user?.name}
+              image={item.user?.image}
             />
           ))}
       </WorkspaceSection>

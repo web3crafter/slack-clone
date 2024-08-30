@@ -42,7 +42,7 @@ export const SidebarItem = ({
     <Button
       variant={"transparent"}
       size={"sm"}
-      className={cn(sidebarItemVariants({ variant }))}
+      className={cn(sidebarItemVariants({ variant: variant }))}
       asChild
     >
       <Link href={`/workspace/${workspaceId}/channel/${id}`}>

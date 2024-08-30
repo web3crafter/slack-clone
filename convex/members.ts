@@ -34,15 +34,24 @@ export const get = query({
       data.map((item) => populateUser(ctx, item.userId)),
     );
 
-    const members = results
-      .filter(
-        (result): result is PromiseFulfilledResult<Doc<"users"> | null> =>
-          result.status === "fulfilled",
-      )
-      .map((result) => result.value)
-      .filter((workspace) => workspace !== null);
+    const combinedMembers = data.map((item) => {
+      const userResult = results.find(
+        (result) =>
+          result.status === "fulfilled" &&
+          result.value &&
+          result.value._id === item.userId,
+      );
 
-    return members;
+      return {
+        ...item,
+        user:
+          userResult && userResult.status === "fulfilled"
+            ? userResult.value
+            : null,
+      };
+    });
+
+    return combinedMembers;
   },
 });
 

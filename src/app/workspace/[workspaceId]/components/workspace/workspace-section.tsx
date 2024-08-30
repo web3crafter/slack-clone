@@ -21,6 +21,7 @@ export const WorkspaceSection = ({
   onNew,
 }: WorkspaceSectionProps) => {
   const [on, toggle] = useToggle(false);
+
   return (
     <div className="mt-3 flex flex-col px-2">
       <div className="group flex items-center px-3.5">
@@ -30,7 +31,7 @@ export const WorkspaceSection = ({
           onClick={toggle}
         >
           <FaCaretDown
-            className={cn("size-4 transition-transform", on && "-rotate-90")}
+            className={cn("size-4 transition-transform", !on && "-rotate-90")}
           />
         </Button>
         <Button

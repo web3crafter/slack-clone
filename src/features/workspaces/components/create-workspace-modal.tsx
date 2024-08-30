@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -46,6 +47,10 @@ export const CreateWorkspaceModal = () => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add a Workspace</DialogTitle>
+          <DialogDescription className="sr-only">
+            Type in a name for your workspace and click Create when you&apos;re
+            done
+          </DialogDescription>
         </DialogHeader>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <Input

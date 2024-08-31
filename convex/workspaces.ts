@@ -2,6 +2,7 @@ import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { Doc } from "./_generated/dataModel";
+import { boolean } from "zod";
 
 const generateJoinCode = () => {
   const code = Array.from(
@@ -215,6 +216,28 @@ export const get = query({
       .filter((workspace) => workspace !== null);
 
     return workspaces;
+  },
+});
+
+export const getInfoById = query({
+  args: { id: v.id("workspaces") },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+
+    if (!userId) {
+      return null;
+    }
+
+    const member = await ctx.db
+      .query("members")
+      .withIndex("by_workspace_id_user_id", (q) =>
+        q.eq("workspaceId", args.id).eq("userId", userId),
+      )
+      .unique();
+
+    const workspace = await ctx.db.get(args.id);
+
+    return { workspaceName: workspace?.name, isMember: !!member };
   },
 });
 

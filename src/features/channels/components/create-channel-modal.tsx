@@ -18,8 +18,8 @@ import {
 } from "@/components/ui/dialog";
 
 export const CreateChannelModal = () => {
-  const router = useRouter();
   const workspaceId = useWorkspaceId();
+  const router = useRouter();
   const [name, setName] = useState("");
   const [open, setOpen] = useCreateChannelModal();
 
@@ -41,7 +41,7 @@ export const CreateChannelModal = () => {
       { name, workspaceId },
       {
         onSuccess(data) {
-          // router.push(`/workspace/${workspaceId}/channel/${channelId}`);
+          router.push(`/workspace/${workspaceId}/channel/${data.channelId}`);
           toast.success("Channel created");
           handleClose();
         },

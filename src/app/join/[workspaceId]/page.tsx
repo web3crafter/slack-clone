@@ -1,18 +1,19 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Loader } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect, useMemo } from "react";
 import VerificationInput from "react-verification-input";
+import { Loader } from "lucide-react";
 import { toast } from "sonner";
 
 import { cn } from "@/lib/utils";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { useJoinWorkspace } from "@/features/workspaces/api/use-join-workspace";
 import { useGetWorkspaceInfo } from "@/features/workspaces/api/use-get-workspace-info";
 
 import { Button } from "@/components/ui/button";
-import { useJoinWorkspace } from "@/features/workspaces/api/use-join-workspace";
 
 const JoinWorkspacePage = () => {
   const workspaceId = useWorkspaceId();
@@ -21,6 +22,14 @@ const JoinWorkspacePage = () => {
   const { data, isLoading } = useGetWorkspaceInfo({ id: workspaceId });
   const { mutate: joinWorkspace, isPending: isPendingJoinWorkspace } =
     useJoinWorkspace();
+
+  const isMember = useMemo(() => data?.isMember, [data?.isMember]);
+
+  useEffect(() => {
+    if (isMember) {
+      router.push(`/workspace/${workspaceId}`);
+    }
+  }, [router, isMember, workspaceId]);
 
   const handleJoinWorkspace = (value: string) => {
     joinWorkspace(

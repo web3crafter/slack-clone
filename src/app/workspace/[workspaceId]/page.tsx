@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo } from "react";
-import { Loader, TriangleAlert } from "lucide-react";
 
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 
@@ -10,6 +9,8 @@ import { useCreateChannelModal } from "@/features/channels/store/use-create-chan
 import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
 import { useGetChannels } from "@/features/channels/api/use-get-channels";
 import { useCurrentMember } from "@/features/members/api/use-current-member";
+import { LoadingData } from "@/components/loading-data";
+import { NoDataFound } from "@/components/no-data-found";
 
 const WorkspaceIdPage = () => {
   const workspaceId = useWorkspaceId();
@@ -59,31 +60,15 @@ const WorkspaceIdPage = () => {
     isLoadingWorkspace,
   ]);
 
-  if (isLoadingWorkspace || isLoadingChannels) {
-    return (
-      <div className="flex h-full flex-1 flex-col items-center justify-center gap-2">
-        <Loader className="size-6 animate-spin text-muted-foreground" />
-      </div>
-    );
+  if (isLoadingWorkspace || isLoadingChannels || isLoadingMember) {
+    return <LoadingData />;
   }
 
-  if (!workspace) {
-    return (
-      <div className="flex h-full flex-1 flex-col items-center justify-center gap-2">
-        <TriangleAlert className="size-6 text-destructive" />
-        <span className="text-sm text-muted-foreground">
-          Workspace not found
-        </span>
-      </div>
-    );
+  if (!workspace || !member) {
+    return <NoDataFound message="Workspace not found" />;
   }
 
-  return (
-    <div className="flex h-full flex-1 flex-col items-center justify-center gap-2">
-      <TriangleAlert className="size-6 text-destructive" />
-      <span className="text-sm text-muted-foreground">No channel found</span>
-    </div>
-  );
+  return <NoDataFound message="Channel not found" />;
 };
 
 export default WorkspaceIdPage;

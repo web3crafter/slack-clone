@@ -3,9 +3,9 @@ import { convexQuery } from "@convex-dev/react-query";
 import { api } from "../../../../convex/_generated/api";
 import { Id } from "../../../../convex/_generated/dataModel";
 
-interface UseGetWorkspaceProps {
-  id: Id<"workspaces">;
+interface UseGetChannelProps {
+  channelId: Id<"channels">;
 }
-export const useGetWorkspace = ({ id }: UseGetWorkspaceProps) => {
-  return useQuery(convexQuery(api.workspaces.getById, { id }));
+export const useGetChannel = ({ channelId }: UseGetChannelProps) => {
+  return useQuery(convexQuery(api.channels.getById, { channelId }));
 };

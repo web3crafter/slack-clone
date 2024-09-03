@@ -91,8 +91,8 @@ export const PreferencesModal = ({
     <>
       <ConfirmRemoveDialog />
       <Dialog open={preferencesOpen} onOpenChange={setPreferencesOpen}>
-        <DialogContent className="overflow-hidden bg-gray-50 p-0">
-          <DialogHeader className="border-b bg-white p-4">
+        <DialogContent className="overflow-hidden p-0">
+          <DialogHeader className="border-b bg-secondary/5 p-4">
             <DialogTitle>{value}</DialogTitle>
             <DialogDescription className="sr-only">
               Preferences for {value}
@@ -101,7 +101,7 @@ export const PreferencesModal = ({
           <div className="flex flex-col gap-y-2 px-4 pb-4">
             <Dialog open={editOpen} onOpenChange={setEditOpen}>
               <DialogTrigger asChild>
-                <div className="cursor-pointer rounded-lg border bg-white px-5 py-4 hover:bg-gray-50">
+                <div className="cursor-pointer rounded-lg border px-5 py-4 hover:bg-secondary/5">
                   <div className="flex items-center justify-between">
                     <p className="text-sm font-semibold">Workspace name</p>
                     <p className="text-sm font-semibold text-[#1264a3] hover:underline">
@@ -114,6 +114,9 @@ export const PreferencesModal = ({
               <DialogContent>
                 <DialogHeader>
                   <DialogTitle>Rename this workspace</DialogTitle>
+                  <DialogDescription className="sr-only">
+                    Rename workspace and click save when done
+                  </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleEditWorkspace} className="space-y-4">
                   <Input
@@ -143,7 +146,7 @@ export const PreferencesModal = ({
               </DialogContent>
             </Dialog>
             <button
-              className="flex cursor-pointer items-center gap-x-2 rounded-lg border bg-white px-5 py-4 text-rose-600 hover:bg-gray-50"
+              className="flex cursor-pointer items-center gap-x-2 rounded-lg border px-5 py-4 text-rose-600 hover:bg-secondary/5"
               disabled={isRemovingWorkspace}
               onClick={handleRemoveWorkspace}
             >

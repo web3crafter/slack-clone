@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo } from "react";
 import VerificationInput from "react-verification-input";
-import { Loader } from "lucide-react";
 import { toast } from "sonner";
 
 import { cn } from "@/lib/utils";
@@ -14,6 +13,7 @@ import { useJoinWorkspace } from "@/features/workspaces/api/use-join-workspace";
 import { useGetWorkspaceInfo } from "@/features/workspaces/api/use-get-workspace-info";
 
 import { Button } from "@/components/ui/button";
+import { LoadingData } from "@/components/loading-data";
 
 const JoinWorkspacePage = () => {
   const workspaceId = useWorkspaceId();
@@ -47,11 +47,7 @@ const JoinWorkspacePage = () => {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <Loader className="size-6 animate-spin text-muted-foreground" />
-      </div>
-    );
+    return <LoadingData />;
   }
 
   return (

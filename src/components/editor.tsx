@@ -5,11 +5,13 @@ import {
   useRef,
   useState,
 } from "react";
+import Image from "next/image";
 import Quill, { QuillOptions } from "quill";
 import { Delta, Op } from "quill/core";
 import { ImageIcon, Smile, XIcon } from "lucide-react";
 import { PiTextAa } from "react-icons/pi";
 import { MdSend } from "react-icons/md";
+import { Skin } from "@emoji-mart/data";
 
 import "quill/dist/quill.snow.css";
 
@@ -18,7 +20,6 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Hint } from "@/components/hint";
 import { EmojiPopover } from "@/components/emoji-popover";
-import Image from "next/image";
 
 type EditorValue = {
   image: File | null;
@@ -152,7 +153,7 @@ const Editor = ({
     }
   };
 
-  const onEmojiSelect = (emoji: any) => {
+  const onEmojiSelect = (emoji: Skin) => {
     const quill = quillRef.current;
     quill?.insertText(quill.getSelection()?.index || 0, emoji.native);
   };

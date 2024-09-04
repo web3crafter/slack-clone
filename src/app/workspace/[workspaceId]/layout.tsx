@@ -24,14 +24,14 @@ const WorkspaceIdLayout = ({ children }: WorkspaceIdLayoutProps) => {
           autoSaveId={"w3c-workspace-layout"}
         >
           <ResizablePanel
-            defaultSize={20}
+            defaultSize={15}
             minSize={11}
             className="bg-[#5E2C5F]"
           >
             <WorkspaceSidebar />
           </ResizablePanel>
           <ResizableHandle withHandle />
-          <ResizablePanel minSize={20} defaultSize={80}>
+          <ResizablePanel minSize={20} defaultSize={85}>
             {children}
           </ResizablePanel>
         </ResizablePanelGroup>

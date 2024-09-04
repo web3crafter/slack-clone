@@ -1,13 +1,24 @@
-import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import Quill from "quill";
-import { useCreateMessage } from "@/features/messages/api/use-create-message";
-import { useWorkspaceId } from "@/hooks/use-workspace-id";
-import { useChannelId } from "@/hooks/use-channel-id";
 import { toast } from "sonner";
+
+import { Id } from "../../../../../../../convex/_generated/dataModel";
+
+import { useChannelId } from "@/hooks/use-channel-id";
+import { useWorkspaceId } from "@/hooks/use-workspace-id";
+
+import { useCreateMessage } from "@/features/messages/api/use-create-message";
+import { useGenerateUploadUrl } from "@/features/upload/api/use-generate-upload-url";
 
 const Editor = dynamic(() => import("@/components/editor"), { ssr: false });
 
+type CreateMessageValues = {
+  channelId: Id<"channels">;
+  workspaceId: Id<"workspaces">;
+  body: string;
+  image?: Id<"_storage"> | undefined;
+};
 interface ChatInputProps {
   placeholder: string;
 }
@@ -21,6 +32,8 @@ export const ChatInput = ({ placeholder }: ChatInputProps) => {
 
   const { mutate: createMessage, isPending: isCreatingMessage } =
     useCreateMessage();
+  const { mutate: generateUploadUrl, isPending: isGeneratingUploadUrl } =
+    useGenerateUploadUrl();
 
   const handleSubmit = ({
     body,
@@ -29,23 +42,74 @@ export const ChatInput = ({ placeholder }: ChatInputProps) => {
     body: string;
     image: File | null;
   }) => {
-    console.log({ body, image });
-    createMessage(
-      {
-        workspaceId,
-        channelId,
-        body,
-      },
-      {
-        onSuccess: () => {
-          setEditorKey((prevKey) => prevKey + 1);
-          toast.success("Message created");
+    // console.log({ body, image });
+    editorRef?.current?.enable(false);
+
+    const values: CreateMessageValues = {
+      channelId,
+      workspaceId,
+      body,
+      image: undefined,
+    };
+
+    if (image) {
+      generateUploadUrl(
+        {},
+        {
+          onSuccess: async (url) => {
+            const result = await fetch(url, {
+              method: "POST",
+              headers: { "content-type": image.type },
+              body: image,
+            });
+
+            if (!result.ok) {
+              toast.error("Failed to upload image");
+            }
+
+            const { storageId } = await result.json();
+
+            values.image = storageId;
+
+            createMessage(values, {
+              onSuccess: () => {
+                setEditorKey((prevKey) => prevKey + 1);
+                toast.success("Message created");
+              },
+              onError: () => {
+                toast.error("Failed to send message");
+              },
+              onSettled: () => {
+                editorRef?.current?.enable(true);
+              },
+            });
+          },
+          onError: () => {
+            toast.error("Url not found");
+          },
         },
-        onError: () => {
-          toast.error("Failed to send message");
+      );
+    } else {
+      createMessage(
+        {
+          workspaceId,
+          channelId,
+          body,
         },
-      },
-    );
+        {
+          onSuccess: () => {
+            setEditorKey((prevKey) => prevKey + 1);
+            toast.success("Message created");
+          },
+          onError: () => {
+            toast.error("Failed to send message");
+          },
+          onSettled: () => {
+            editorRef?.current?.enable(true);
+          },
+        },
+      );
+    }
   };
 
   return (

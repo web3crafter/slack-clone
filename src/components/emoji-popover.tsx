@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Picker from "@emoji-mart/react";
-import data, { Skin } from "@emoji-mart/data";
+import data, { Emoji } from "@emoji-mart/data";
 
 import {
   Popover,
@@ -14,10 +14,16 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+export interface ModifiedEmoji extends Omit<Emoji, "skins" | "version"> {
+  native: string;
+  unified: string;
+  shortcodes: string;
+}
+
 interface EmojiPopoverProps {
   children: React.ReactNode;
   hint?: string;
-  onEmojiSelect: (emoji: Skin) => void;
+  onEmojiSelect: (emoji: ModifiedEmoji) => void;
 }
 
 export const EmojiPopover = ({
@@ -28,7 +34,7 @@ export const EmojiPopover = ({
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
-  const onSelect = (emoji: Skin) => {
+  const onSelect = (emoji: ModifiedEmoji) => {
     onEmojiSelect(emoji);
     setPopoverOpen(false);
 

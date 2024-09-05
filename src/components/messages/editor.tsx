@@ -16,14 +16,18 @@ import "quill/dist/quill.snow.css";
 
 import { cn } from "@/lib/utils";
 
-import { EmojiPopover, ModifiedEmoji } from "@/components/emoji-popover";
+import {
+  EmojiPopover,
+  ModifiedEmoji,
+} from "@/components/messages/emoji-popover";
 import { Button } from "@/components/ui/button";
 import { Hint } from "@/components/hint";
 
-type EditorValue = {
+export type EditorValue = {
   image: File | null;
   body: string;
 };
+
 interface EditorProps {
   onSubmit: ({ image, body }: EditorValue) => void;
   onCancel?: () => void;

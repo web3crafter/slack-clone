@@ -292,6 +292,8 @@ export const remove = mutation({
 
     await ctx.db.delete(args.messageId);
 
+    //TODO: remove file from storage if it exists
+
     return { messageId: args.messageId };
   },
 });

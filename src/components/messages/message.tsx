@@ -13,6 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MessageToolbar } from "@/components/messages/message-toolbar";
 import { Thumbnail } from "@/components/messages/thumbnail";
 import { Hint } from "@/components/hint";
+import { useToggleReaction } from "@/features/reactions/api/use-toggle-reaction";
 
 const Renderer = dynamic(() => import("@/components/messages/renderer"), {
   ssr: false,
@@ -73,9 +74,12 @@ export const Message = ({
     useUpdateMessage();
   const { mutate: removeMessage, isPending: isRemovingMessage } =
     useRemoveMessage();
+  const { mutate: toggleReaction, isPending: isTogglingReaction } =
+    useToggleReaction();
   const avatarFallback = authorName.charAt(0).toUpperCase();
 
-  const isPending = isUpdatingMessage || isRemovingMessage;
+  const isPending =
+    isUpdatingMessage || isRemovingMessage || isTogglingReaction;
 
   const handleUpdateMessage = ({ body }: { body: string }) => {
     updateMessage(
@@ -90,6 +94,20 @@ export const Message = ({
         },
         onError: () => {
           toast.error("Failed to update message");
+        },
+      },
+    );
+  };
+
+  const handleToggleReaction = async (value: string) => {
+    toggleReaction(
+      {
+        messageId,
+        value,
+      },
+      {
+        onError: () => {
+          toast.error("Failed to add reaction");
         },
       },
     );
@@ -152,6 +170,7 @@ export const Message = ({
                     (edited)
                   </span>
                 )}
+                {JSON.stringify(reactions)}
               </div>
             )}
           </div>
@@ -162,7 +181,7 @@ export const Message = ({
               handleEdit={() => setEditingId(messageId)}
               handleDelete={handleRemoveMessage}
               handleThread={() => {}}
-              handleReaction={() => {}}
+              handleReaction={handleToggleReaction}
               hideThreadButton={hideThreadButton}
             />
           )}
@@ -221,6 +240,7 @@ export const Message = ({
               {updatedAt && (
                 <span className="text-xs text-muted-foreground">(edited)</span>
               )}
+              {JSON.stringify(reactions)}
             </div>
           )}
         </div>
@@ -231,7 +251,7 @@ export const Message = ({
             handleEdit={() => setEditingId(messageId)}
             handleDelete={handleRemoveMessage}
             handleThread={() => {}}
-            handleReaction={() => {}}
+            handleReaction={handleToggleReaction}
             hideThreadButton={hideThreadButton}
           />
         )}

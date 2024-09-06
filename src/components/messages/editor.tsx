@@ -22,6 +22,7 @@ import {
 } from "@/components/messages/emoji-popover";
 import { Button } from "@/components/ui/button";
 import { Hint } from "@/components/hint";
+import { BsFillEmojiSmileFill } from "react-icons/bs";
 
 export type EditorValue = {
   image: File | null;
@@ -217,7 +218,7 @@ const Editor = ({
           </Hint>
           <EmojiPopover onEmojiSelect={onEmojiSelect}>
             <Button variant={"ghost"} size={"iconSm"} disabled={disabled}>
-              <Smile className="size-4" />
+              <BsFillEmojiSmileFill className="size-4 dark:fill-yellow-500" />
             </Button>
           </EmojiPopover>
           {variant === "create" && (

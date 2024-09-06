@@ -7,6 +7,7 @@ import { formatFullTime } from "@/lib/utils";
 import { Hint } from "@/components/hint";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Thumbnail } from "@/components/messages/thumbnail";
+import { MessageToolbar } from "@/components/messages/message-toolbar";
 
 const Renderer = dynamic(() => import("@/components/messages/renderer"), {
   ssr: false,
@@ -110,6 +111,17 @@ export const Message = ({
           )}
         </div>
       </div>
+      {!isEditing && (
+        <MessageToolbar
+          isAuthor={isAuthor}
+          isPending={false}
+          handleEdit={() => setEditingId(id)}
+          handleDelete={() => {}}
+          handleThread={() => {}}
+          handleReaction={() => {}}
+          hideThreadButton={hideThreadButton}
+        />
+      )}
     </div>
   );
 };

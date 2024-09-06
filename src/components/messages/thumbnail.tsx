@@ -1,7 +1,14 @@
 /** eslint-disable @next/next/no-img-element */
 
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Image from "next/image";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTrigger,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface ThumbnailProps {
   url?: string | null;
@@ -22,12 +29,17 @@ export const Thumbnail = ({ url }: ThumbnailProps) => {
           />
         </div>
       </DialogTrigger>
-      <DialogContent className="max-h-[800px] max-w-[800px] border-none bg-transparent p-0 shadow-none">
-        <img
-          src={url}
-          alt="Message image"
-          className="size-full rounded-md object-cover"
-        />
+      <DialogContent className="h-[800px] w-[800px] overflow-hidden border-none bg-transparent p-2 shadow-none">
+        <DialogTitle className="sr-only">Image preview</DialogTitle>
+        <DialogDescription className="sr-only">Image preview</DialogDescription>
+        <div className="">
+          <Image
+            src={url}
+            alt="Message image"
+            fill
+            className="rounded-md object-contain"
+          />
+        </div>
       </DialogContent>
     </Dialog>
   );

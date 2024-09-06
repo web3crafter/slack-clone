@@ -14,6 +14,7 @@ import { MessageToolbar } from "@/components/messages/message-toolbar";
 import { Thumbnail } from "@/components/messages/thumbnail";
 import { Hint } from "@/components/hint";
 import { useToggleReaction } from "@/features/reactions/api/use-toggle-reaction";
+import { Reactions } from "@/components/messages/reactions";
 
 const Renderer = dynamic(() => import("@/components/messages/renderer"), {
   ssr: false,
@@ -170,7 +171,7 @@ export const Message = ({
                     (edited)
                   </span>
                 )}
-                {JSON.stringify(reactions)}
+                <Reactions data={reactions} onChange={handleToggleReaction} />
               </div>
             )}
           </div>
@@ -240,7 +241,7 @@ export const Message = ({
               {updatedAt && (
                 <span className="text-xs text-muted-foreground">(edited)</span>
               )}
-              {JSON.stringify(reactions)}
+              <Reactions data={reactions} onChange={handleToggleReaction} />
             </div>
           )}
         </div>

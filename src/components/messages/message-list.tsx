@@ -84,7 +84,7 @@ export const MessageList = ({
             return (
               <Message
                 key={message?._id}
-                id={message._id}
+                messageId={message._id}
                 memberId={message.memberId}
                 isAuthor={message.memberId === currentMember?._id}
                 authorName={message.user.name}

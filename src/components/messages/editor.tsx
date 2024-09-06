@@ -175,7 +175,7 @@ const Editor = ({
       />
       <div
         className={cn(
-          "flex flex-col overflow-hidden rounded-md border border-slate-200 transition focus-within:border-slate-300 focus-within:shadow-sm dark:border-secondary/50 focus-within:dark:border-secondary",
+          "flex flex-col overflow-hidden rounded-md border border-slate-200 bg-background transition focus-within:border-slate-300 focus-within:shadow-sm dark:border-secondary/50 focus-within:dark:border-secondary",
           disabled && "opacity-50",
         )}
       >
@@ -218,7 +218,7 @@ const Editor = ({
           </Hint>
           <EmojiPopover onEmojiSelect={onEmojiSelect}>
             <Button variant={"ghost"} size={"iconSm"} disabled={disabled}>
-              <BsFillEmojiSmileFill className="size-4 dark:fill-yellow-500" />
+              😃
             </Button>
           </EmojiPopover>
           {variant === "create" && (

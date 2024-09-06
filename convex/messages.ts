@@ -79,7 +79,11 @@ export const get = query({
     const userId = await getAuthUserId(ctx);
 
     if (!userId) {
-      throw new Error("Unauthorized");
+      return {
+        page: [],
+        isDone: true,
+        continueCursor: "",
+      };
     }
 
     let _conversationId = args.conversationId;
@@ -89,7 +93,11 @@ export const get = query({
       const parentMessage = await ctx.db.get(args.parentMessageId);
 
       if (!parentMessage) {
-        throw new Error("Parent message not found");
+        return {
+          page: [],
+          isDone: true,
+          continueCursor: "",
+        };
       }
 
       _conversationId = parentMessage.conversationId;
@@ -254,6 +262,35 @@ export const update = mutation({
       body: args.body,
       updatedAt: Date.now(),
     });
+
+    return { messageId: args.messageId };
+  },
+});
+
+export const remove = mutation({
+  args: {
+    messageId: v.id("messages"),
+  },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+
+    if (!userId) {
+      throw new Error("Unauthorized");
+    }
+
+    const message = await ctx.db.get(args.messageId);
+
+    if (!message) {
+      throw new Error("Message not found");
+    }
+
+    const member = await getMember(ctx, message.workspaceId, userId);
+
+    if (!member || member._id !== message.memberId) {
+      throw new Error("Unauthorized");
+    }
+
+    await ctx.db.delete(args.messageId);
 
     return { messageId: args.messageId };
   },

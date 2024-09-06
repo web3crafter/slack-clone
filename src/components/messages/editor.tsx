@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 
 import {
   EmojiPopover,
-  ModifiedEmoji,
+  SelectedEmoji,
 } from "@/components/messages/emoji-popover";
 import { Button } from "@/components/ui/button";
 import { Hint } from "@/components/hint";
@@ -156,7 +156,7 @@ const Editor = ({
     }
   };
 
-  const onEmojiSelect = (emoji: ModifiedEmoji) => {
+  const onEmojiSelect = (emoji: SelectedEmoji) => {
     const quill = quillRef.current;
     quill?.insertText(quill.getSelection()?.index || 0, emoji.native);
   };

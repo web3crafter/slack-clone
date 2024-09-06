@@ -14,7 +14,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-export interface ModifiedEmoji extends Omit<Emoji, "skins" | "version"> {
+export interface SelectedEmoji
+  extends Pick<Emoji, "id" | "name" | "emoticons" | "keywords"> {
   native: string;
   unified: string;
   shortcodes: string;
@@ -23,7 +24,7 @@ export interface ModifiedEmoji extends Omit<Emoji, "skins" | "version"> {
 interface EmojiPopoverProps {
   children: React.ReactNode;
   hint?: string;
-  onEmojiSelect: (emoji: ModifiedEmoji) => void;
+  onEmojiSelect: (emoji: SelectedEmoji) => void;
 }
 
 export const EmojiPopover = ({
@@ -34,7 +35,7 @@ export const EmojiPopover = ({
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
-  const onSelect = (emoji: ModifiedEmoji) => {
+  const onSelect = (emoji: SelectedEmoji) => {
     onEmojiSelect(emoji);
     setPopoverOpen(false);
 

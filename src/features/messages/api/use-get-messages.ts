@@ -4,7 +4,6 @@ import { Id } from "../../../../convex/_generated/dataModel";
 import { api } from "../../../../convex/_generated/api";
 
 const BATCH_SIZE = 20;
-
 export type GetMessagesReturnType =
   (typeof api.messages.get._returnType)["page"];
 

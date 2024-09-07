@@ -138,3 +138,7 @@ body,
   scrollbar-width: thin;
   scrollbar-color: #dcdcdc #f8f8f8;
 }
+
+.dark .messages-scrollbar {
+  scrollbar-color: #300b38 #481249;
+}

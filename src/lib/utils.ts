@@ -13,3 +13,12 @@ export const replaceWhiteSpace = (string: string) => {
 export const formatFullTime = (date: Date) => {
   return `${isToday(date) ? "Today" : isYesterday(date) ? "Yesterday" : format(date, "MMMM d, yyyy")} at ${format(date, "h:mm:ss a")}`;
 };
+
+export const formatDateLabel = (dateStr: string) => {
+  const date = new Date(dateStr);
+  if (isToday(date)) return "Today";
+  if (isYesterday(date)) return "Yesterday";
+  return format(date, "EEEE MMMM d");
+};
+
+export const TIME_THRESHOLD = 5;

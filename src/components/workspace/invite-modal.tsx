@@ -1,9 +1,10 @@
 import { Copy, RefreshCcw } from "lucide-react";
 import { toast } from "sonner";
 
-import { Id } from "../../../../../../convex/_generated/dataModel";
+import { Id } from "../../../convex/_generated/dataModel";
+import { useConfirm } from "@/hooks/use-confirm";
+import { useNewJoinCode } from "@/hooks/workspaces/use-new-join-code";
 
-import { useNewJoinCode } from "@/features/workspaces/api/use-new-join-code";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,7 +14,6 @@ import {
   DialogDescription,
   DialogClose,
 } from "@/components/ui/dialog";
-import { useConfirm } from "@/hooks/use-confirm";
 
 interface InviteModalProps {
   inviteOpen: boolean;

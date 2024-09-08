@@ -6,9 +6,9 @@ import { toast } from "sonner";
 import { Id } from "../../../convex/_generated/dataModel";
 
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { useCreateMessage } from "@/hooks/messages/use-create-message";
+import { useGenerateUploadUrl } from "@/hooks/upload/use-generate-upload-url";
 
-import { useCreateMessage } from "@/features/messages/api/use-create-message";
-import { useGenerateUploadUrl } from "@/features/upload/api/use-generate-upload-url";
 import { EditorValue } from "@/components/messages/editor";
 
 const Editor = dynamic(() => import("@/components/messages/editor"), {

@@ -1,8 +1,8 @@
 "use client";
 import { Info, Search } from "lucide-react";
 
-import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { useGetWorkspace } from "@/hooks/workspaces/use-get-workspace";
 
 import { Button } from "@/components/ui/button";
 

@@ -3,8 +3,8 @@ import { Doc, Id } from "../../../convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
 
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { useCurrentMember } from "@/hooks/members/use-current-member";
 
-import { useCurrentMember } from "@/features/members/api/use-current-member";
 import { EmojiPopover } from "@/components/messages/emoji-popover";
 import { Hint } from "@/components/hint";
 

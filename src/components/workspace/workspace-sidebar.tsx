@@ -9,12 +9,12 @@ import {
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { useChannelId } from "@/hooks/use-channel-id";
 import { useMemberId } from "@/hooks/use-member-id";
+import { useGetChannels } from "@/hooks/channels/use-get-channels";
+import { useGetMembers } from "@/hooks/members/use-get-members";
+import { useCurrentMember } from "@/hooks/members/use-current-member";
+import { useGetWorkspace } from "@/hooks/workspaces/use-get-workspace";
 
-import { useGetChannels } from "@/features/channels/api/use-get-channels";
-import { useCurrentMember } from "@/features/members/api/use-current-member";
-import { useGetMembers } from "@/features/members/api/use-get-members";
-import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
-import { useCreateChannelModal } from "@/features/channels/store/use-create-channel-modal";
+import { useCreateChannelModal } from "@/store/use-create-channel-modal";
 
 import { WorkspaceHeader } from "@/components/workspace/workspace-header";
 import { WorkspaceSection } from "@/components/workspace/workspace-section";

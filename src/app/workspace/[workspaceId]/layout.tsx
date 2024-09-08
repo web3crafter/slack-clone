@@ -14,15 +14,16 @@ import { LoadingData } from "@/components/loading-data";
 import { Thread } from "@/components/messages/thread";
 import { Sidebar } from "@/components/workspace/sidebar";
 import { WorkspaceSidebar } from "@/components/workspace/workspace-sidebar";
+import { Profile } from "@/components/members/profile";
 
 interface WorkspaceIdLayoutProps {
   children: React.ReactNode;
 }
 
 const WorkspaceIdLayout = ({ children }: WorkspaceIdLayoutProps) => {
-  const { parentMessageId, onCloseMessage } = usePanel();
+  const { parentMessageId, onClose, profileMemberId } = usePanel();
 
-  const showPanel = !!parentMessageId;
+  const showPanel = !!parentMessageId || !!profileMemberId;
 
   return (
     <div className="h-full">
@@ -32,8 +33,10 @@ const WorkspaceIdLayout = ({ children }: WorkspaceIdLayoutProps) => {
         <ResizablePanelGroup
           direction="horizontal"
           autoSaveId={"w3c-workspace-layout"}
+          id={"workspace-layout"}
         >
           <ResizablePanel
+            id="workspace-sidebar"
             defaultSize={15}
             minSize={11}
             className="bg-[#5E2C5F]"
@@ -41,17 +44,22 @@ const WorkspaceIdLayout = ({ children }: WorkspaceIdLayoutProps) => {
             <WorkspaceSidebar />
           </ResizablePanel>
           <ResizableHandle withHandle />
-          <ResizablePanel minSize={20} defaultSize={85}>
+          <ResizablePanel id="main-panel" minSize={20} defaultSize={85}>
             {children}
           </ResizablePanel>
           {showPanel && (
             <>
               <ResizableHandle withHandle />
-              <ResizablePanel defaultSize={29} minSize={20}>
+              <ResizablePanel id="thread-panel" defaultSize={29} minSize={20}>
                 {parentMessageId ? (
                   <Thread
                     messageId={parentMessageId as Id<"messages">}
-                    onClose={onCloseMessage}
+                    onClose={onClose}
+                  />
+                ) : profileMemberId ? (
+                  <Profile
+                    memberId={profileMemberId as Id<"members">}
+                    onClose={onClose}
                   />
                 ) : (
                   <LoadingData />

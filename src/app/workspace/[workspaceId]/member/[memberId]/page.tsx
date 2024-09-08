@@ -1,15 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { useMemberId } from "@/hooks/use-member-id";
-
-import { useCreateOrGetConversation } from "@/features/conversations/api/use-create-or-get-conversation";
+import { useCreateOrGetConversation } from "@/hooks/conversations/use-create-or-get-conversation";
 
 import { LoadingData } from "@/components/loading-data";
 import { NoDataFound } from "@/components/no-data-found";
-import { toast } from "sonner";
 import { Conversation } from "@/components/conversation/conversation";
 
 const MemberPage = () => {

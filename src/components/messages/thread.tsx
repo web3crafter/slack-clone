@@ -10,11 +10,11 @@ import { formatDateLabel, TIME_THRESHOLD } from "@/lib/utils";
 
 import { useChannelId } from "@/hooks/use-channel-id";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
-import { useGetMessage } from "@/features/messages/api/use-get-message";
-import { useCurrentMember } from "@/features/members/api/use-current-member";
-import { useCreateMessage } from "@/features/messages/api/use-create-message";
-import { useGenerateUploadUrl } from "@/features/upload/api/use-generate-upload-url";
-import { useGetMessages } from "@/features/messages/api/use-get-messages";
+import { useCurrentMember } from "@/hooks/members/use-current-member";
+import { useGetMessage } from "@/hooks/messages/use-get-message";
+import { useGetMessages } from "@/hooks/messages/use-get-messages";
+import { useCreateMessage } from "@/hooks/messages/use-create-message";
+import { useGenerateUploadUrl } from "@/hooks/upload/use-generate-upload-url";
 
 import { Button } from "@/components/ui/button";
 import { LoadingData } from "@/components/loading-data";

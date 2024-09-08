@@ -5,9 +5,9 @@ import { useEffect, useMemo } from "react";
 
 import { ModeToggle } from "@/components/mode-toggle";
 
-import { UserButton } from "@/features/auth/components/user-button";
-import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces";
-import { useCreateWorkspaceModal } from "@/features/workspaces/store/use-create-workspace-modal";
+import { UserButton } from "@/components/auth/user-button";
+import { useCreateWorkspaceModal } from "@/store/use-create-workspace-modal";
+import { useGetWorkspaces } from "@/hooks/workspaces/use-get-workspaces";
 
 export default function Home() {
   const router = useRouter();

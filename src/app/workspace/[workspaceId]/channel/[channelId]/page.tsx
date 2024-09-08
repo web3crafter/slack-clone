@@ -1,8 +1,8 @@
 "use client";
 
 import { useChannelId } from "@/hooks/use-channel-id";
-import { useGetChannel } from "@/features/channels/api/use-get-chanel";
-import { useGetMessages } from "@/features/messages/api/use-get-messages";
+import { useGetMessages } from "@/hooks/messages/use-get-messages";
+import { useGetChannel } from "@/hooks/channels/use-get-chanel";
 
 import { ChannelHeader } from "@/components/channel/channel-header";
 import { LoadingData } from "@/components/loading-data";

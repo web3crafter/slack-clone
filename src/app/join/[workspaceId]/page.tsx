@@ -8,9 +8,10 @@ import VerificationInput from "react-verification-input";
 import { toast } from "sonner";
 
 import { cn } from "@/lib/utils";
+
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
-import { useJoinWorkspace } from "@/features/workspaces/api/use-join-workspace";
-import { useGetWorkspaceInfo } from "@/features/workspaces/api/use-get-workspace-info";
+import { useGetWorkspaceInfo } from "@/hooks/workspaces/use-get-workspace-info";
+import { useJoinWorkspace } from "@/hooks/workspaces/use-join-workspace";
 
 import { Button } from "@/components/ui/button";
 import { LoadingData } from "@/components/loading-data";

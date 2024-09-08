@@ -5,7 +5,7 @@ import { BellIcon, Home, MessagesSquare, MoreHorizontal } from "lucide-react";
 
 import { SidebarButton } from "@/components/workspace/sidebar-button";
 import { WorkspaceSwitcher } from "@/components/workspace/workspace-switcher";
-import { UserButton } from "@/features/auth/components/user-button";
+import { UserButton } from "@/components/auth/user-button";
 
 import { ModeToggle } from "@/components/mode-toggle";
 

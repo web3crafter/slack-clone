@@ -4,10 +4,10 @@ import { useRouter } from "next/navigation";
 import { Loader, PlusIcon } from "lucide-react";
 
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { useGetWorkspaces } from "@/hooks/workspaces/use-get-workspaces";
+import { useGetWorkspace } from "@/hooks/workspaces/use-get-workspace";
 
-import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
-import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces";
-import { useCreateWorkspaceModal } from "@/features/workspaces/store/use-create-workspace-modal";
+import { useCreateWorkspaceModal } from "@/store/use-create-workspace-modal";
 
 import { Button } from "@/components/ui/button";
 import {

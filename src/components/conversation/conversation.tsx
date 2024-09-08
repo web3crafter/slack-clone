@@ -1,9 +1,7 @@
-import dynamic from "next/dynamic";
-
 import { Doc, Id } from "../../../convex/_generated/dataModel";
 
-import { useGetMessages } from "@/features/messages/api/use-get-messages";
-import { useGetMember } from "@/features/members/api/use-get-member";
+import { useGetMember } from "@/hooks/members/use-get-member";
+import { useGetMessages } from "@/hooks/messages/use-get-messages";
 
 import { LoadingData } from "@/components/loading-data";
 import { ConversationHeader } from "@/components/conversation/conversation-header";

@@ -1,13 +1,13 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Trash } from "lucide-react";
+import { toast } from "sonner";
 
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
-import { useUpdateWorkspace } from "@/features/workspaces/api/use-update-workspace";
-import { useRemoveWorkspace } from "@/features/workspaces/api/use-remove-workspace";
 import { useConfirm } from "@/hooks/use-confirm";
+import { useUpdateWorkspace } from "@/hooks/workspaces/use-update-workspace";
+import { useRemoveWorkspace } from "@/hooks/workspaces/use-remove-workspace";
 
-import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {

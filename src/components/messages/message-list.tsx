@@ -2,13 +2,13 @@ import { useState } from "react";
 import { differenceInMinutes, format } from "date-fns";
 import { Loader } from "lucide-react";
 
-import { formatDateLabel, TIME_THRESHOLD } from "@/lib/utils";
 import { Id } from "../../../convex/_generated/dataModel";
 
-import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { formatDateLabel, TIME_THRESHOLD } from "@/lib/utils";
 
-import { useCurrentMember } from "@/features/members/api/use-current-member";
-import { GetMessagesReturnType } from "@/features/messages/api/use-get-messages";
+import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { GetMessagesReturnType } from "@/hooks/messages/use-get-messages";
+import { useCurrentMember } from "@/hooks/members/use-current-member";
 
 import { Message } from "@/components/messages/message";
 import { ChannelHero } from "@/components/channel/channel-hero";

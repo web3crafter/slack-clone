@@ -7,10 +7,9 @@ import { cn, formatFullTime } from "@/lib/utils";
 
 import { useConfirm } from "@/hooks/use-confirm";
 import { usePanel } from "@/hooks/use-panel";
-
-import { useUpdateMessage } from "@/features/messages/api/use-update-message";
-import { useRemoveMessage } from "@/features/messages/api/use-remove-message";
-import { useToggleReaction } from "@/features/reactions/api/use-toggle-reaction";
+import { useUpdateMessage } from "@/hooks/messages/use-update-message";
+import { useRemoveMessage } from "@/hooks/messages/use-remove-message";
+import { useToggleReaction } from "@/hooks/reactions/use-toggle-reaction";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MessageToolbar } from "@/components/messages/message-toolbar";
@@ -76,7 +75,7 @@ export const Message = ({
     "Delete message",
     "Are you sure you want to delete this message? This action cannot be undone.",
   );
-  const { parentMessageId, onOpenMessage, onCloseMessage } = usePanel();
+  const { parentMessageId, onOpenMessage, onClose } = usePanel();
   const { mutate: updateMessage, isPending: isUpdatingMessage } =
     useUpdateMessage();
   const { mutate: removeMessage, isPending: isRemovingMessage } =
@@ -132,7 +131,7 @@ export const Message = ({
           toast.success("Message removed");
 
           if (parentMessageId === messageId) {
-            onCloseMessage();
+            onClose();
           }
         },
         onError: () => {

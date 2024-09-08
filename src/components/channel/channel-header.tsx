@@ -5,13 +5,13 @@ import { FaChevronDown } from "react-icons/fa";
 import { TrashIcon } from "lucide-react";
 
 import { replaceWhiteSpace } from "@/lib/utils";
+
 import { useChannelId } from "@/hooks/use-channel-id";
 import { useConfirm } from "@/hooks/use-confirm";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
-
-import { useUpdateChannel } from "@/features/channels/api/use-update-channel";
-import { useRemoveChannel } from "@/features/channels/api/use-remove-channel";
-import { useCurrentMember } from "@/features/members/api/use-current-member";
+import { useCurrentMember } from "@/hooks/members/use-current-member";
+import { useUpdateChannel } from "@/hooks/channels/use-update-channel";
+import { useRemoveChannel } from "@/hooks/channels/use-remove-channel";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

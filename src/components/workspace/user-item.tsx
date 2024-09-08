@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { cva, type VariantProps } from "class-variance-authority";
-import { Id } from "../../../../../convex/_generated/dataModel";
+
+import { Id } from "../../../convex/_generated/dataModel";
 
 import { cn } from "@/lib/utils";
+
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 
 import { Button } from "@/components/ui/button";

@@ -21,4 +21,8 @@ export const formatDateLabel = (dateStr: string) => {
   return format(date, "EEEE MMMM d");
 };
 
+export const getAvatarFallback = (name: string) => {
+  return name.charAt(0).toUpperCase();
+};
+
 export const TIME_THRESHOLD = 5;

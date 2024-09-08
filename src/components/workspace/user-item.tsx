@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import { Id } from "../../../convex/_generated/dataModel";
 
-import { cn } from "@/lib/utils";
+import { cn, getAvatarFallback } from "@/lib/utils";
 
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 
@@ -39,7 +39,6 @@ export const UserItem = ({
   variant,
 }: UserItemProps) => {
   const workspaceId = useWorkspaceId();
-  const avatarFallback = label.charAt(0).toUpperCase();
   return (
     <Button
       variant="transparent"
@@ -49,7 +48,9 @@ export const UserItem = ({
       <Link href={`/workspace/${workspaceId}/member/${id}`}>
         <Avatar className="mr-1 size-5">
           <AvatarImage src={image} />
-          <AvatarFallback className="text-xs">{avatarFallback}</AvatarFallback>
+          <AvatarFallback className="text-xs">
+            {getAvatarFallback(label)}
+          </AvatarFallback>
         </Avatar>
         <span className="truncate text-sm">{label}</span>
       </Link>

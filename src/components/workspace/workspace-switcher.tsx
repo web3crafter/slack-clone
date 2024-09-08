@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { Loader, PlusIcon } from "lucide-react";
 
+import { getAvatarFallback } from "@/lib/utils";
+
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { useGetWorkspaces } from "@/hooks/workspaces/use-get-workspaces";
 import { useGetWorkspace } from "@/hooks/workspaces/use-get-workspace";
@@ -40,7 +42,7 @@ export const WorkspaceSwitcher = () => {
           {isLoadingWorkspace ? (
             <Loader className="size-5 animate-spin hover:shrink-0" />
           ) : (
-            workspace?.name.charAt(0).toUpperCase()
+            <>{workspace?.name && getAvatarFallback(workspace?.name)}</>
           )}
         </Button>
       </DropdownMenuTrigger>
@@ -61,7 +63,7 @@ export const WorkspaceSwitcher = () => {
             onClick={() => router.push(`/workspace/${workspace._id}`)}
           >
             <div className="text relative mr-2 flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-md bg-[#616061] text-xl font-semibold text-white">
-              {workspace.name.charAt(0).toUpperCase()}
+              {getAvatarFallback(workspace.name)}
             </div>
             <p className="truncate">{workspace.name}</p>
           </DropdownMenuItem>

@@ -170,16 +170,37 @@ export const remove = mutation({
       throw new Error("Unauthorized");
     }
 
-    const [members] = await Promise.all([
-      ctx.db
-        .query("members")
-        .withIndex("by_workspace_id", (q) => q.eq("workspaceId", args.id))
-        .collect(),
-    ]);
+    const [members, channels, conversations, messages, reactions] =
+      await Promise.all([
+        ctx.db
+          .query("members")
+          .withIndex("by_workspace_id", (q) => q.eq("workspaceId", args.id))
+          .collect(),
+        ctx.db
+          .query("channels")
+          .withIndex("by_workspace_id", (q) => q.eq("workspaceId", args.id))
+          .collect(),
+        ctx.db
+          .query("conversations")
+          .withIndex("by_workspace_id", (q) => q.eq("workspaceId", args.id))
+          .collect(),
+        ctx.db
+          .query("messages")
+          .withIndex("by_workspace_id", (q) => q.eq("workspaceId", args.id))
+          .collect(),
+        ctx.db
+          .query("reactions")
+          .withIndex("by_workspace_id", (q) => q.eq("workspaceId", args.id))
+          .collect(),
+      ]);
 
-    for (const member of members) {
-      await ctx.db.delete(member._id);
-    }
+    await Promise.all([
+      ...members.map((member) => ctx.db.delete(member._id)),
+      ...channels.map((channel) => ctx.db.delete(channel._id)),
+      ...conversations.map((conversation) => ctx.db.delete(conversation._id)),
+      ...messages.map((message) => ctx.db.delete(message._id)),
+      ...reactions.map((reaction) => ctx.db.delete(reaction._id)),
+    ]);
 
     await ctx.db.delete(args.id);
 

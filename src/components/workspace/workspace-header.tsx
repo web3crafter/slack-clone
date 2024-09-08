@@ -2,10 +2,8 @@ import { useState } from "react";
 import { ChevronDown, ListFilter, SquarePen } from "lucide-react";
 import { Doc } from "../../../convex/_generated/dataModel";
 
-import { PreferencesModal } from "@/components/workspace/preferences-modal";
-import { Hint } from "@/components/hint";
-import { Button } from "@/components/ui/button";
-import { InviteModal } from "@/components/workspace/invite-modal";
+import { getAvatarFallback } from "@/lib/utils";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +11,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { PreferencesModal } from "@/components/workspace/preferences-modal";
+import { Hint } from "@/components/hint";
+import { Button } from "@/components/ui/button";
+import { InviteModal } from "@/components/workspace/invite-modal";
 
 interface WorkspaceHeaderProps {
   workspace: Doc<"workspaces">;
@@ -55,7 +57,7 @@ export const WorkspaceHeader = ({
           <DropdownMenuContent side="bottom" align="start" className="w-64">
             <DropdownMenuItem className="cursor-pointer capitalize">
               <div className="relative mr-2 flex size-9 items-center justify-center overflow-hidden rounded-md bg-[#616061] text-xl font-semibold text-white">
-                {workspace.name.charAt(0).toUpperCase()}
+                {getAvatarFallback(workspace.name)}
               </div>
               <div className="flex flex-col items-start">
                 <p className="font-bold">{workspace.name}</p>

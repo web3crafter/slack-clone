@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { toast } from "sonner";
 
 import { Doc, Id } from "../../../convex/_generated/dataModel";
-import { cn, formatFullTime } from "@/lib/utils";
+import { cn, formatFullTime, getAvatarFallback } from "@/lib/utils";
 
 import { useConfirm } from "@/hooks/use-confirm";
 import { usePanel } from "@/hooks/use-panel";
@@ -75,14 +75,13 @@ export const Message = ({
     "Delete message",
     "Are you sure you want to delete this message? This action cannot be undone.",
   );
-  const { parentMessageId, onOpenMessage, onClose } = usePanel();
+  const { parentMessageId, onOpenMessage, onClose, onOpenProfile } = usePanel();
   const { mutate: updateMessage, isPending: isUpdatingMessage } =
     useUpdateMessage();
   const { mutate: removeMessage, isPending: isRemovingMessage } =
     useRemoveMessage();
   const { mutate: toggleReaction, isPending: isTogglingReaction } =
     useToggleReaction();
-  const avatarFallback = authorName.charAt(0).toUpperCase();
 
   const isPending =
     isUpdatingMessage || isRemovingMessage || isTogglingReaction;
@@ -217,10 +216,10 @@ export const Message = ({
         )}
       >
         <div className="flex items-start gap-2">
-          <button>
+          <button onClick={() => onOpenProfile(memberId)}>
             <Avatar>
               <AvatarImage src={authorImage} className="" />
-              <AvatarFallback>{avatarFallback}</AvatarFallback>
+              <AvatarFallback>{getAvatarFallback(authorName)}</AvatarFallback>
             </Avatar>
           </button>
           {isEditing ? (
@@ -237,7 +236,7 @@ export const Message = ({
             <div className="flex w-full flex-col overflow-hidden">
               <div className="text-sm">
                 <button
-                  onClick={() => {}}
+                  onClick={() => onOpenProfile(memberId)}
                   className="font-bold text-primary hover:underline"
                 >
                   {authorName}

@@ -2,6 +2,7 @@ import { Doc, Id } from "../../../convex/_generated/dataModel";
 
 import { useGetMember } from "@/hooks/members/use-get-member";
 import { useGetMessages } from "@/hooks/messages/use-get-messages";
+import { usePanel } from "@/hooks/use-panel";
 
 import { LoadingData } from "@/components/loading-data";
 import { ConversationHeader } from "@/components/conversation/conversation-header";
@@ -21,11 +22,10 @@ export const Conversation = ({
   const { data: otherMember, isLoading: isLoadingOtherMember } = useGetMember({
     memberId: otherMemberId,
   });
-  const { results, loadMore, status } = useGetMessages({
+  const { results, loadMore, status, isLoadingFirstPage } = useGetMessages({
     conversationId: conversation._id,
   });
-
-  const isLoadingFirstPage = status === "LoadingFirstPage";
+  const { onOpenProfile } = usePanel();
 
   if (isLoadingOtherMember || isLoadingFirstPage) return <LoadingData />;
 
@@ -34,7 +34,7 @@ export const Conversation = ({
       <ConversationHeader
         memberName={otherMember?.user.name}
         memberImage={otherMember?.user.image}
-        onClick={() => {}}
+        onClick={() => onOpenProfile(otherMemberId)}
       />
       <MessageList
         data={results}

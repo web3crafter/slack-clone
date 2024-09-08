@@ -52,7 +52,14 @@ export const Thread = ({ messageId, onClose }: ThreadProps) => {
   const { data: message, isLoading: isLoadingMessage } = useGetMessage({
     messageId,
   });
-  const { results, status, loadMore } = useGetMessages({
+  const {
+    results,
+    status,
+    loadMore,
+    isLoadingFirstPage,
+    canLoadMore,
+    isLoadingMore,
+  } = useGetMessages({
     channelId,
     parentMessageId: messageId,
   });
@@ -62,9 +69,7 @@ export const Thread = ({ messageId, onClose }: ThreadProps) => {
   const { mutate: generateUploadUrl, isPending: isGeneratingUploadUrl } =
     useGenerateUploadUrl();
 
-  const isLoading = isLoadingMessage && status === "LoadingFirstPage";
-  const canLoadMore = status === "CanLoadMore";
-  const isLoadingMore = status === "LoadingMore";
+  const isLoading = isLoadingMessage && isLoadingFirstPage;
 
   const groupedMessages = results?.reduce(
     (groups, message) => {

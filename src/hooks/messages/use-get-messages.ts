@@ -18,7 +18,7 @@ export const useGetMessages = ({
   conversationId,
   parentMessageId,
 }: UseGetMessagesProps) => {
-  const { results, status, loadMore } = usePaginatedQuery(
+  const { results, status, loadMore, isLoading } = usePaginatedQuery(
     api.messages.get,
     { channelId, conversationId, parentMessageId },
     {
@@ -26,9 +26,19 @@ export const useGetMessages = ({
     },
   );
 
+  const isLoadingFirstPage = status === "LoadingFirstPage";
+  const canLoadMore = status === "CanLoadMore";
+  const isLoadingMore = status === "LoadingMore";
+  const isExhausted = status === "Exhausted";
+
   return {
     results,
     status,
+    isLoading,
+    isLoadingFirstPage,
+    canLoadMore,
+    isLoadingMore,
+    isExhausted,
     loadMore: () => loadMore(BATCH_SIZE),
   };
 };

@@ -2,6 +2,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { formatDistanceToNow } from "date-fns";
 import { ChevronRight } from "lucide-react";
 
+import { getAvatarFallback } from "@/lib/utils";
+
 interface ThreadBarProps {
   name?: string;
   image?: string;
@@ -27,7 +29,7 @@ export const ThreadBar = ({
       <div className="flex items-center gap-2 overflow-hidden">
         <Avatar className="size-6 shrink-0">
           <AvatarImage src={image} />
-          <AvatarFallback>{name.charAt(0).toUpperCase()}</AvatarFallback>
+          <AvatarFallback>{getAvatarFallback(name)}</AvatarFallback>
         </Avatar>
         <span className="truncate text-xs font-bold text-sky-700 hover:underline">
           {count} {count > 1 ? "replies" : "reply"}

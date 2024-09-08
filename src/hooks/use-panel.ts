@@ -1,5 +1,5 @@
-import { useProfileMemberId } from "@/store/use-profile-member-id";
-import { useParentMessageId } from "@/store/use-parent-message-id";
+import { useParentMessageId } from "@/hooks/querry-params/use-parent-message-id";
+import { useProfileMemberId } from "@/hooks/querry-params/use-profile-member-id";
 
 export const usePanel = () => {
   const [parentMessageId, setParentMessageId] = useParentMessageId();

@@ -1,5 +1,7 @@
 import { FaChevronDown } from "react-icons/fa";
 
+import { getAvatarFallback } from "@/lib/utils";
+
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -14,8 +16,6 @@ export const ConversationHeader = ({
   memberImage,
   onClick,
 }: HeaderProps) => {
-  const avatarFallback = memberName.charAt(0).toUpperCase();
-
   return (
     <div className="flex h-[49px] items-center overflow-hidden border-b px-4">
       <Button
@@ -26,7 +26,7 @@ export const ConversationHeader = ({
       >
         <Avatar className="mr-2 size-6">
           <AvatarImage src={memberImage} className="" />
-          <AvatarFallback>{avatarFallback}</AvatarFallback>
+          <AvatarFallback>{getAvatarFallback(memberName)}</AvatarFallback>
         </Avatar>
         <span className="truncate">{memberName}</span>
         <FaChevronDown className="ml-2 size-2.5" />

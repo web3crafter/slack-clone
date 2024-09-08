@@ -27,7 +27,7 @@ export const Reactions = ({ data, onChange }: ReactionsProps) => {
   if (data.length === 0 || !currentMemberId) return null;
 
   return (
-    <div className="mb-1 mt-1 flex items-center gap-1">
+    <div className="mb-1 mt-1 flex flex-wrap items-center gap-1">
       {data.map((reaction) => (
         <Hint
           key={reaction._id}

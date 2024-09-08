@@ -17,6 +17,7 @@ import { MessageToolbar } from "@/components/messages/message-toolbar";
 import { Thumbnail } from "@/components/messages/thumbnail";
 import { Reactions } from "@/components/messages/reactions";
 import { Hint } from "@/components/hint";
+import { ThreadBar } from "@/components/thread-bar";
 
 const Renderer = dynamic(() => import("@/components/messages/renderer"), {
   ssr: false,
@@ -43,6 +44,7 @@ interface MessageProps {
   createdAt: Doc<"messages">["_creationTime"];
   threadCount?: number;
   threadImage?: string;
+  threadName?: string;
   threadTimestamp?: number;
   isEditing: boolean;
   setEditingId: (messageId: Id<"messages"> | null) => void;
@@ -67,6 +69,7 @@ export const Message = ({
   hideThreadButton,
   threadCount,
   threadImage,
+  threadName,
   threadTimestamp,
 }: MessageProps) => {
   const [ConfirmDialog, confirmDeleteMessage] = useConfirm(
@@ -177,6 +180,13 @@ export const Message = ({
                   </span>
                 )}
                 <Reactions data={reactions} onChange={handleToggleReaction} />
+                <ThreadBar
+                  count={threadCount}
+                  image={threadImage}
+                  name={threadName}
+                  timestamp={threadTimestamp}
+                  onClick={() => onOpenMessage(messageId)}
+                />
               </div>
             )}
           </div>
@@ -247,6 +257,13 @@ export const Message = ({
                 <span className="text-xs text-muted-foreground">(edited)</span>
               )}
               <Reactions data={reactions} onChange={handleToggleReaction} />
+              <ThreadBar
+                count={threadCount}
+                image={threadImage}
+                name={threadName}
+                timestamp={threadTimestamp}
+                onClick={() => onOpenMessage(messageId)}
+              />
             </div>
           )}
         </div>

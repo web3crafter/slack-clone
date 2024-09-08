@@ -4,11 +4,11 @@ import { useChannelId } from "@/hooks/use-channel-id";
 import { useGetChannel } from "@/features/channels/api/use-get-chanel";
 import { useGetMessages } from "@/features/messages/api/use-get-messages";
 
-import { ChannelHeader } from "./components/channel-header";
-import { ChatInput } from "./components/chat-input";
+import { ChannelHeader } from "@/components/channel/channel-header";
 import { LoadingData } from "@/components/loading-data";
 import { NoDataFound } from "@/components/no-data-found";
 import { MessageList } from "@/components/messages/message-list";
+import { ChannelChatInput } from "@/components/channel/channel-chat-input";
 
 const ChannelIdPage = () => {
   const channelId = useChannelId();
@@ -36,7 +36,7 @@ const ChannelIdPage = () => {
         isLoadingMore={status === "LoadingMore"}
         canLoadMore={status === "CanLoadMore"}
       />
-      <ChatInput placeholder={`message #${channel.name}`} />
+      <ChannelChatInput placeholder={`message #${channel.name}`} />
     </div>
   );
 };

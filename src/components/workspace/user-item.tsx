@@ -44,7 +44,7 @@ export const UserItem = ({
       className={cn("", userItemVariants({ variant: variant }))}
       asChild
     >
-      <Link href={`/workspace/${workspaceId}/members/${id}`}>
+      <Link href={`/workspace/${workspaceId}/member/${id}`}>
         <Avatar className="mr-1 size-5">
           <AvatarImage src={image} />
           <AvatarFallback className="text-xs">{avatarFallback}</AvatarFallback>

@@ -1,19 +1,19 @@
 "use client";
 
+import { Id } from "../../../../convex/_generated/dataModel";
+
 import { usePanel } from "@/hooks/use-panel";
 
-import { Sidebar } from "@/app/workspace/[workspaceId]/components/sidebar";
-import { Toolbar } from "@/app/workspace/[workspaceId]/components/toolbar";
-import { WorkspaceSidebar } from "@/app/workspace/[workspaceId]/components/workspace/workspace-sidebar";
-
-import { LoadingData } from "@/components/loading-data";
-import { Thread } from "@/components/messages/thread";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { Id } from "../../../../convex/_generated/dataModel";
+import { Toolbar } from "@/components/workspace/toolbar";
+import { LoadingData } from "@/components/loading-data";
+import { Thread } from "@/components/messages/thread";
+import { Sidebar } from "@/components/workspace/sidebar";
+import { WorkspaceSidebar } from "@/components/workspace/workspace-sidebar";
 
 interface WorkspaceIdLayoutProps {
   children: React.ReactNode;

@@ -3,8 +3,8 @@
 import { usePathname } from "next/navigation";
 import { BellIcon, Home, MessagesSquare, MoreHorizontal } from "lucide-react";
 
-import { SidebarButton } from "@/app/workspace/[workspaceId]/components/sidebar-button";
-import { WorkspaceSwitcher } from "@/app/workspace/[workspaceId]/components/workspace/workspace-switcher";
+import { SidebarButton } from "@/components/workspace/sidebar-button";
+import { WorkspaceSwitcher } from "@/components/workspace/workspace-switcher";
 import { UserButton } from "@/features/auth/components/user-button";
 
 import { ModeToggle } from "@/components/mode-toggle";

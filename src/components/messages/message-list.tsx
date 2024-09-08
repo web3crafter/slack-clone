@@ -11,7 +11,8 @@ import { useCurrentMember } from "@/features/members/api/use-current-member";
 import { GetMessagesReturnType } from "@/features/messages/api/use-get-messages";
 
 import { Message } from "@/components/messages/message";
-import { ChannelHero } from "@/app/workspace/[workspaceId]/channel/[channelId]/components/channel-hero";
+import { ChannelHero } from "@/components/channel/channel-hero";
+import { ConversationHero } from "@/components/conversation/conversation-hero";
 
 interface MessageListProps {
   memberName?: string;
@@ -133,6 +134,9 @@ export const MessageList = ({
           channelName={channelName}
           channelCreationTime={channelCreationTime}
         />
+      )}
+      {variant === "conversation" && (
+        <ConversationHero memberName={memberName} memberImage={memberImage} />
       )}
     </div>
   );

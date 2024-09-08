@@ -26,7 +26,7 @@ interface ChatInputProps {
   placeholder: string;
 }
 
-export const ChatInput = ({ placeholder }: ChatInputProps) => {
+export const ChannelChatInput = ({ placeholder }: ChatInputProps) => {
   const [editorKey, setEditorKey] = useState(0);
   const workspaceId = useWorkspaceId();
   const channelId = useChannelId();

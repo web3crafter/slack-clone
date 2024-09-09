@@ -19,6 +19,7 @@ const MemberPage = () => {
     mutate: createConversation,
     data: conversation,
     isPending,
+    status,
   } = useCreateOrGetConversation();
 
   useEffect(() => {
@@ -38,7 +39,7 @@ const MemberPage = () => {
     );
   }, [createConversation, workspaceId, interactingWithMemberId]);
 
-  if (isPending) return <LoadingData />;
+  if (isPending || status === "idle") return <LoadingData />;
 
   if (!conversation) return <NoDataFound message="Conversation not found" />;
 

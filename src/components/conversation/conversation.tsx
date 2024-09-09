@@ -22,9 +22,10 @@ export const Conversation = ({
   const { data: otherMember, isLoading: isLoadingOtherMember } = useGetMember({
     memberId: otherMemberId,
   });
-  const { results, loadMore, status, isLoadingFirstPage } = useGetMessages({
-    conversationId: conversation._id,
-  });
+  const { results, loadMore, isLoadingFirstPage, isLoadingMore, canLoadMore } =
+    useGetMessages({
+      conversationId: conversation._id,
+    });
   const { onOpenProfile } = usePanel();
 
   if (isLoadingOtherMember || isLoadingFirstPage) return <LoadingData />;
@@ -42,8 +43,8 @@ export const Conversation = ({
         memberImage={otherMember?.user.image}
         channelName={otherMember?.user.name}
         loadMore={loadMore}
-        isLoadingMore={status === "LoadingMore"}
-        canLoadMore={status === "CanLoadMore"}
+        isLoadingMore={isLoadingMore}
+        canLoadMore={canLoadMore}
         variant="conversation"
       />
       <ConversationChatInput

@@ -13,13 +13,20 @@ import { ChannelChatInput } from "@/components/channel/channel-chat-input";
 const ChannelIdPage = () => {
   const channelId = useChannelId();
 
-  const { results, status, loadMore } = useGetMessages({ channelId });
+  const { results, loadMore, isLoadingFirstPage, isLoadingMore, canLoadMore } =
+    useGetMessages({
+      channelId,
+    });
 
-  const { data: channel, isLoading: isLoadingChannel } = useGetChannel({
+  const {
+    data: channel,
+    isLoading: isLoadingChannel,
+    status: getChannelStatus,
+  } = useGetChannel({
     channelId,
   });
 
-  if (isLoadingChannel || status === "LoadingFirstPage") {
+  if (isLoadingChannel || isLoadingFirstPage) {
     return <LoadingData />;
   }
 
@@ -33,8 +40,8 @@ const ChannelIdPage = () => {
         channelCreationTime={channel._creationTime}
         data={results}
         loadMore={loadMore}
-        isLoadingMore={status === "LoadingMore"}
-        canLoadMore={status === "CanLoadMore"}
+        isLoadingMore={isLoadingMore}
+        canLoadMore={canLoadMore}
       />
       <ChannelChatInput placeholder={`message #${channel.name}`} />
     </div>

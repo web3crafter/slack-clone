@@ -364,10 +364,49 @@ export const remove = mutation({
       throw new Error("Unauthorized");
     }
 
-    await ctx.db.delete(args.messageId);
+    if (message.image) {
+      await ctx.storage.delete(message.image);
+    }
 
-    //TODO: remove file from storage if it exists
-    //TODO: remove reactions
+    const [replies, reactions] = await Promise.all([
+      ctx.db
+        .query("messages")
+        .withIndex("by_parent_message_id", (q) =>
+          q.eq("parentMessageId", args.messageId),
+        )
+        .collect(),
+      ctx.db
+        .query("reactions")
+        .withIndex("by_message_id", (q) => q.eq("messageId", args.messageId))
+        .collect(),
+    ]);
+
+    await Promise.all(
+      replies.map((reply) => {
+        if (reply.image) {
+          return ctx.storage.delete(reply.image);
+        }
+      }),
+    );
+
+    const replyReactions = await Promise.all(
+      replies.map((reply) =>
+        ctx.db
+          .query("reactions")
+          .withIndex("by_message_id", (q) => q.eq("messageId", reply._id))
+          .collect(),
+      ),
+    );
+
+    const allReplyReactions = replyReactions.flat();
+
+    await Promise.all([
+      ...replies.map((reply) => ctx.db.delete(reply._id)),
+      ...reactions.map((reaction) => ctx.db.delete(reaction._id)),
+      ...allReplyReactions.map((reaction) => ctx.db.delete(reaction._id)),
+    ]);
+
+    await ctx.db.delete(args.messageId);
 
     return { messageId: args.messageId };
   },

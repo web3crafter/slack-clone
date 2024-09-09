@@ -52,7 +52,7 @@ const JoinWorkspacePage = () => {
   }
 
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-y-8 rounded-lg bg-white p-8 shadow-md">
+    <div className="flex h-full flex-col items-center justify-center gap-y-8 rounded-lg p-8 shadow-md">
       <Image src="/logo.svg" width={60} height={60} alt="logo" />
       <div className="flex max-w-md flex-col items-center justify-center gap-y-4">
         <div className="flex flex-col items-center justify-center gap-y-2">
@@ -63,6 +63,7 @@ const JoinWorkspacePage = () => {
             Enter the workspace code to join
           </p>
         </div>
+
         <VerificationInput
           classNames={{
             container: cn(

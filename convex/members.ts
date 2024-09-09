@@ -1,7 +1,7 @@
 import { v } from "convex/values";
 import { mutation, query, QueryCtx } from "./_generated/server";
 import { getAuthUserId } from "@convex-dev/auth/server";
-import { Id } from "./_generated/dataModel";
+import { Doc, Id } from "./_generated/dataModel";
 
 const populateUser = (ctx: QueryCtx, userId: Id<"users">) => {
   return ctx.db.get(userId);
@@ -31,25 +31,44 @@ export const get = query({
       .collect();
 
     const results = await Promise.allSettled(
-      data.map((item) => populateUser(ctx, item.userId)),
+      data.map(async (member) => {
+        const user = await populateUser(ctx, member.userId);
+        if (user) {
+          return { ...member, user };
+        }
+      }),
     );
 
-    const combinedMembers = data.map((item) => {
-      const userResult = results.find(
-        (result) =>
-          result.status === "fulfilled" &&
-          result.value &&
-          result.value._id === item.userId,
-      );
+    const combinedMembers = results
+      .filter(
+        (
+          result,
+        ): result is PromiseFulfilledResult<
+          Doc<"members"> & { user: Doc<"users"> }
+        > => result.status === "fulfilled" && result.value !== null,
+      )
+      .map((result) => result.value);
 
-      return {
-        ...item,
-        user:
-          userResult && userResult.status === "fulfilled"
-            ? userResult.value
-            : null,
-      };
-    });
+    // const results = await Promise.allSettled(
+    //   data.map((item) => populateUser(ctx, item.userId)),
+    // );
+
+    // const combinedMembers = data.map((item) => {
+    //   const userResult = results.find(
+    //     (result) =>
+    //       result.status === "fulfilled" &&
+    //       result.value &&
+    //       result.value._id === item.userId,
+    //   );
+
+    //   return {
+    //     ...item,
+    //     user:
+    //       userResult && userResult.status === "fulfilled"
+    //         ? userResult.value
+    //         : null,
+    //   };
+    // });
 
     return combinedMembers;
   },

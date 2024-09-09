@@ -21,7 +21,7 @@ export const SidebarButton = ({
         variant={"transparent"}
         className={cn(
           "size-9 p-2 group-hover:bg-accent/20",
-          isActive && "bg-accent/20",
+          isActive && "bg-white/20",
         )}
       >
         <Icon className="size-5 text-white transition-all group-hover:scale-110" />
